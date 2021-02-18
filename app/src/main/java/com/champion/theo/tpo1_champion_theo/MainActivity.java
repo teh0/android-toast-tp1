@@ -2,88 +2,98 @@ package com.champion.theo.tpo1_champion_theo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.champion.theo.tpo1_champion_theo.databinding.ActivityMainBinding;
+import com.champion.theo.tpo1_champion_theo.databinding.ActivitySecondBinding;
+
 public class MainActivity extends AppCompatActivity {
-    /**
-     * Text view containing count value
-     */
-    private TextView textView;
 
     /**
-     * Button used to increment count
+     * Binding entity to retrieve activity views
      */
-    private Button countButton;
-
-    /**
-     * Button to display toast
-     */
-    private Button toastButton;
-
-    /**
-     * Counter value
-     */
-    private Integer count = 0;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        this.initViews();
+        this.configActivity();
         this.initEventsViews();
     }
 
     /**
-     * Methods that allow to retrieve the instance of views in the layout
+     * Handle configuration of activity
      */
-    private void initViews() {
-        this.textView = findViewById(R.id.countValue);
-        this.countButton = findViewById(R.id.count);
-        this.toastButton = findViewById(R.id.toast);
-        this.textView.setText(String.valueOf(this.count));
+    private void configActivity() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     /**
      * Register and init all events of view elements
      */
     private void initEventsViews() {
-        this.onClickCountButton();
-        this.onCLickToastButton();
+        this.onClickToastActivityButton();
+        this.onClickCalculatorActivityButton();
+        this.onClickSendMailButton();
     }
 
     /**
-     * Event handler for count button click
+     * Event handler for toast activity button click
      */
-    private void onClickCountButton() {
-        this.countButton.setOnClickListener(new View.OnClickListener() {
+    private void onClickToastActivityButton() {
+        this.binding.toToastActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                textView.setText(String.valueOf(count));
-
+                Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+                startActivity(intent);
             }
         });
     }
 
     /**
-     * Event handler for toast button click
+     * Event handler for calculator activity button click
      */
-    private void onCLickToastButton() {
-        this.toastButton.setOnClickListener(new View.OnClickListener() {
+    private void onClickCalculatorActivityButton() {
+        this.binding.toCalculatorActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, this.getToastText(count) , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * Event handler for send mail button click
+     */
+    private void onClickSendMailButton() {
+        this.binding.sendMailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                this.configSendIntent(
+                        intent,
+                        "tochampion38@gmail.com",
+                        "Test email",
+                        "Bonjour :)"
+                );
+                startActivity(Intent.createChooser(intent, "Send email"));
             }
 
             /**
-             * Return text displayed into the toast
+             * Config intent by providing all necessary infos to send mail
              */
-            private String getToastText(Integer countValue) {
-                return "Value of count : " +  String.valueOf(count);
+            private void configSendIntent(Intent intent, String recipient, String subject, String body) {
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, body);
             }
         });
     }
