@@ -6,4 +6,5 @@
     <string name="activity_toast">Activity Toast</string>
     <string name="activity_calculator">Activity calculator</string>
     <string name="send_mail">Send mail</string>
+    <string name="activity_image">Activity image</string>
 </resources>

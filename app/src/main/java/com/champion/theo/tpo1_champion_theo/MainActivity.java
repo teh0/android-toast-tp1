@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.onClickToastActivityButton();
         this.onClickCalculatorActivityButton();
         this.onClickSendMailButton();
+        this.onClickImageActivityButton();
     }
 
     /**
@@ -94,6 +95,19 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 intent.putExtra(Intent.EXTRA_TEXT, body);
+            }
+        });
+    }
+
+    /**
+     * Event handler for add image activity button click
+     */
+    private void onClickImageActivityButton() {
+        this.binding.toImageActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddImageActivity.class);
+                startActivity(intent);
             }
         });
     }

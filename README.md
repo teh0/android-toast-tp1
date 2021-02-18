@@ -14,3 +14,8 @@
 * Sujet : Créer une vue d'accueil qui permet de rediriger vers nos précedentes activités et créer un bouton pour envoyer un mail
 * Activité associée : `app/src/main/java/com/champion/theo/tpo1_champion_theo/MainActivity.java`
 * Layout associé : `app/src/main/res/layout/activity_main.xml`
+
+## Exercice 4 - **Inject Image**
+* Sujet : Injecter une image avec la lib [Glide](https://github.com/bumptech/glide)
+* Activité associée : `app/src/main/java/com/champion/theo/tpo1_champion_theo/AddImageActivity.java`
+* Layout associé : `app/src/main/res/layout/activity_add_image.xml`
